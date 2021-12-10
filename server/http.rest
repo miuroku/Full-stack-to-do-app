@@ -1,0 +1,93 @@
+### Create projectList
+POST http://localhost:8080/project-list
+Content-Type: application/json
+
+{
+    "title": "Some title here",
+    "owner": "Some owner here"
+}
+
+### GET example
+GET http://localhost:8080/users/get-users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIxN2JjMjc0MmE0OTliODc4YmI4MjQiLCJuYW1lIjoiX0FkbWluXzEzIiwiZW1haWwiOiJfX2FkbWluXzEzX19AZ21haWwuY29tIiwiaWF0IjoxNjM5MTQ2MDI2LCJleHAiOjE2MzkxNDY5MjZ9.2J5heJb_0qIc9jT0ihUayd-yiLyVeVpLgH7t16Llcbg
+
+
+### With cookie.
+
+### GET access token for '__admin__@gmail.com' user.
+POST http://localhost:8080/auth/access-token
+Content-Type: application/json
+
+{
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTdlZjVlNWQ3NjQ0NDM3NmFlMDU3MjUiLCJuYW1lIjoiX0FkbWluXzEiLCJlbWFpbCI6Il9fYWRtaW5fX0BnbWFpbC5jb20iLCJpYXQiOjE2Mzg5MDc4MjAsImV4cCI6MTY0MTQ5OTgyMH0.l0bhUqDaOlA_aUd1rXtCYubB6tDU-rzxOvgTLMfMvto"
+}
+
+
+### GET access token for '__admin__@gmail.com' user.
+POST http://localhost:8080/auth/access-token-cookies
+Cookie: __refresh_token__=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTdlZjVlNWQ3NjQ0NDM3NmFlMDU3MjUiLCJuYW1lIjoiX0FkbWluXzEiLCJlbWFpbCI6Il9fYWRtaW5fX0BnbWFpbC5jb20iLCJpYXQiOjE2Mzg5MDc4MjAsImV4cCI6MTY0MTQ5OTgyMH0.l0bhUqDaOlA_aUd1rXtCYubB6tDU-rzxOvgTLMfMvto
+Content-Type: application/json
+
+
+### Register User
+POST http://localhost:8080/users/register-cookies
+Content-Type: application/json
+
+{   
+    "user": {
+        "name": "_Admin_13",
+        "email": "__admin_13__@gmail.com",
+        "password": "Some_password_of_user_Maks"   
+    }
+}
+
+### Login User
+POST http://localhost:8080/users/login-cookies
+Content-Type: application/json
+
+{
+    "user": {
+        "email": "__admin_13__@gmail.com",
+        "password": "Some_password_of_user_Maks"   
+    }
+}
+
+### Project List operations : 
+
+### 1. Get all project lists by user.
+GET http://localhost:8080/project-list/get-all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIxN2JjMjc0MmE0OTliODc4YmI4MjQiLCJuYW1lIjoiX0FkbWluXzEzIiwiZW1haWwiOiJfX2FkbWluXzEzX19AZ21haWwuY29tIiwiaWF0IjoxNjM5MTQ2MDI2LCJleHAiOjE2MzkxNDY5MjZ9.2J5heJb_0qIc9jT0ihUayd-yiLyVeVpLgH7t16Llcbg
+
+### 2. Create one.
+POST http://localhost:8080/project-list/create-one
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIxN2JjMjc0MmE0OTliODc4YmI4MjQiLCJuYW1lIjoiX0FkbWluXzEzIiwiZW1haWwiOiJfX2FkbWluXzEzX19AZ21haWwuY29tIiwiaWF0IjoxNjM5MTQ2MDI2LCJleHAiOjE2MzkxNDY5MjZ9.2J5heJb_0qIc9jT0ihUayd-yiLyVeVpLgH7t16Llcbg
+Content-Type: application/json
+
+{
+    "projectList": {
+        "title": "My-title",
+        "tag": "Common"   
+    }
+}
+
+### 3. Delete one
+POST http://localhost:8080/project-list/delete-one
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIxN2JjMjc0MmE0OTliODc4YmI4MjQiLCJuYW1lIjoiX0FkbWluXzEzIiwiZW1haWwiOiJfX2FkbWluXzEzX19AZ21haWwuY29tIiwiaWF0IjoxNjM5MTQ2MDI2LCJleHAiOjE2MzkxNDY5MjZ9.2J5heJb_0qIc9jT0ihUayd-yiLyVeVpLgH7t16Llcbg
+Content-Type: application/json
+
+### Task operations : 
+
+### 1. Create one.
+POST http://localhost:8080/task/create-one/61b24389ec14cfcee5083f82
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIxN2JjMjc0MmE0OTliODc4YmI4MjQiLCJuYW1lIjoiX0FkbWluXzEzIiwiZW1haWwiOiJfX2FkbWluXzEzX19AZ21haWwuY29tIiwiaWF0IjoxNjM5MTQ2MDI2LCJleHAiOjE2MzkxNDY5MjZ9.2J5heJb_0qIc9jT0ihUayd-yiLyVeVpLgH7t16Llcbg
+Content-Type: application/json
+
+{
+    "task": {
+        "title": "Our_title_of_task"           
+    }
+}
+
+### 2. Get all
+GET http://localhost:8080/project-list/get-tasks-from-project-list/61b24389ec14cfcee5083f82
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIxN2JjMjc0MmE0OTliODc4YmI4MjQiLCJuYW1lIjoiX0FkbWluXzEzIiwiZW1haWwiOiJfX2FkbWluXzEzX19AZ21haWwuY29tIiwiaWF0IjoxNjM5MTQ2MDI2LCJleHAiOjE2MzkxNDY5MjZ9.2J5heJb_0qIc9jT0ihUayd-yiLyVeVpLgH7t16Llcbg
