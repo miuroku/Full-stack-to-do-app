@@ -35,7 +35,7 @@ export default async function isAuth (req, res: Response, next: any) {
         const decoded = jwt.verify(token, settings.auth.secret, settings.auth.decodeJWTOptions);
         //const decodedRefresh = jwt.verify(refreshToken, settings.auth.secretForRefresh, decodeJWTOptions);
         req.userDecoded = decoded;
-        logger.debug("- JWT is verifed and all is OK !");
+        //logger.debug("- JWT is verifed and all is OK !");
         //logger.info(`Your decoded user : ${JSON.stringify(decoded, null, 4)}`);
         return next();
     } catch (e) {

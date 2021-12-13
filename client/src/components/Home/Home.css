@@ -1,0 +1,57 @@
+
+.home-container {
+    font-size: 30px;
+}
+
+.hello-user-message {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 100;
+    padding-top: 50px;    
+    padding-bottom: 50px;
+}
+
+/* 3D Button */
+.btn-3d {
+    width: 50%;    
+	position: relative;
+	display: inline-block;
+	font-size: 22px;
+	padding: 20px 160px;
+	color: white;
+	margin: 20px 10px 10px;
+	border-radius: 6px;
+	text-align: center;
+    text-decoration: none;
+	transition: top .01s linear;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+
+.btn-3d.green:hover  {background-color: #80C49D;}
+
+.btn-3d:active {
+	top: 9px;
+}
+
+.btn-3d.green {
+    margin-left: 25%;
+	background-color: #82c8a0;
+	box-shadow: 0 0 0 1px #82c8a0 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 8px 0 0 rgba(126, 194, 155, .7),
+				0 8px 0 1px rgba(0,0,0,.4),
+				0 8px 8px 1px rgba(0,0,0,0.5);
+}
+.btn-3d.green:active {
+	box-shadow: 0 0 0 1px #82c8a0 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 0 0 1px rgba(0,0,0,0.4);
+}
+
+
+.pre-content-about-statistics {
+    text-align: center;
+    /* width: 100%;
+    justify-content: center;
+    align-items: center; */
+}

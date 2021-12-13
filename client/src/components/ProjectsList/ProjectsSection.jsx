@@ -1,9 +1,8 @@
-import React from 'react'
-import Project from './Project'
+import React from 'react';
+import Project from './Project';
 
 
-
-export default function ProjectsSection({projects}) {
+export default function ProjectsSection({projects, removeProject}) {
     return (
         <div>
             <ul>
@@ -11,7 +10,7 @@ export default function ProjectsSection({projects}) {
                     projects.map((project, i) => {
                         return (
                             <li>
-                                <Project title={project.title} _id={project._id} key={project._id} />
+                                <Project project={project} title={project.title} _id={project._id} key={project._id} removeProject={removeProject} />
                             </li>
                         )
                     })

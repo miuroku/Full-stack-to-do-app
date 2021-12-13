@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import './NavBar.css';
+import logo from './../../assets/to-do-logo.jpeg';
 
 import { useUser } from "../../store";
 
@@ -35,39 +37,64 @@ const NavBar = () => {
     };
 
     return (
-        <>
-            <nav className="navbar">
-                <div className="navbar-continer">                    
-                    <ul className="nav-menu">
-                        <li className="nav-item">
-                            <Link to="/about-us">
-                                About us.
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/register">
-                                Registration
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/login">
-                                Login
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <button onClick={() => logout()}>
-                                Logout
-                            </button>
-                        </li>
-                        <li>
-                            <Link to="/">
-                                Projects list
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
+        <header className="header">
+            <img className="logo" alt="to-do-app-logo" src={logo}/>
+            <nav className="navbar">                
+                <ul className="nav-menu">
+                    <li className="nav-item">
+                        <Link className="a" to="/about-us">
+                            About us (Home)
+                        </Link>
+                    </li>
+                    {user == null ? (
+                        <>     
+                            <li className="nav-item">
+                                <Link className="a" to="/register">
+                                    Registration
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="a" to="/login">
+                                    Login
+                                </Link>
+                            </li>
+                        </>
+                    ) : (
+                        <></>
+                    )}
+                    <li className="nav-item">                        
+                        <Link className="a" to="/login" onClick={() => logout()}>
+                            Logout
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="a" to="/">
+                            Projects list
+                        </Link>
+                    </li>
+                </ul>                
             </nav>
-        </>
+            <div className="nav-item">
+                <a className="a" href="#">
+                    Contact                    
+                </a>
+            </div>
+            { user !== null ? (
+                    <div className="nav-item">                        
+                        <a className="a" href="#">
+                            <div className="hello-user-navbar">
+                                Hello, "{user.name}" user !
+                            </div>
+                        </a>
+                    </div>
+                )
+                :
+                (
+                    <>
+                    </>
+                )
+            }
+        </header>
     );
 };
 

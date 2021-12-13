@@ -2,20 +2,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useMemo, useState } from 'react';
 import Project from './Project';
+import ProjectForm from './ProjectForm';
+import './ProjectsList.css';
 
 import ProjectsSection from './ProjectsSection';
-import { getProjectsList, createProjectList } from '../../services/ProjectsList/ProjectsList';
+import { getProjectsList, createProjectList, deleteProjectList } from '../../services/ProjectsList/ProjectsList';
 import { useUser } from '../../store';
 import { Redirect } from 'react-router';
 
-import {Paper, TextField} from '@material-ui/core'
-import { Checkbox, Button } from '@material-ui/core';
-
 const ProjectsList = () => {
 
-    const [projects, setProjects] = useState([]);
-    const [title, setTitle] = useState('');
-    const [tag, setTag] = useState('');        
+    const [projects, setProjects] = useState([]);        
 
     const {user, setUser, token, setToken} = useUser();
 
@@ -31,9 +28,9 @@ const ProjectsList = () => {
         }
     };
 
-    const makeNewProjectList = async (event) => {
+    const makeNewProjectList = async (title, tag) => {
 
-        event.preventDefault();
+        //event.preventDefault();
         try {            
             const projectListData = {
                 title: title,
@@ -58,14 +55,33 @@ const ProjectsList = () => {
         }
     };
 
-    const handleTitleChange = (event) => {
-        setTitle(event.target.value);        
-    };
+    const deleteProject = async (our_project_id) => {
+        try {
+            console.log('inside delete project');            
+            const fetchResult = await deleteProjectList(token, our_project_id);
+            if (fetchResult.status === 200) {
+                console.log(`Project deleted.`);
 
-    const handleTagChange = (event) => {
-        const ourTag = "Common";
-        const tagFromInput = event.target.value;
-        setTag(ourTag);        
+                // Solve 1.
+                // Why it not re-renders component ? Ask someone.
+                // const newProjectsList = projects;
+                // for (let i = 0; i < newProjectsList.length; i++){
+                //     if ((newProjectsList[i] as any)._id === our_project_id){
+                //         delete newProjectsList[i];
+                //         console.log('Project deleted locally.');
+                //         break;
+                //     }
+                // }
+                // setProjects(newProjectsList);
+
+                // Solve 2.
+                refreshLocalProjectsList();
+            } else {
+                throw new Error(`Unable to delete project, some error occured`);
+            }
+        } catch (e) {
+            console.log(`Error : ${e}`);
+        }
     };
 
     // Update projects List.
@@ -74,24 +90,28 @@ const ProjectsList = () => {
     }, []);    
 
     return (
-        <div>
+        <div className="projects-list-container">
             {
                 user !== null ? 
                 (
                     <>
-                        <h2>Create new project list : </h2>
+                        <div className="title-before-form">
+                            <h2>Create new project list : </h2>
+                        </div>
 
-                        <form onSubmit={makeNewProjectList}>
-                                Title: <input type="text" name="title" value={title} onChange={handleTitleChange} required/><br/>
-                                Tag: <input type="text" name="tag" value={tag} onChange={handleTagChange} required/><br/>
-                            <button type="submit">Create new project list</button>
-                        </form>            
-                        <h2>List of projects : </h2><br/>
-                        <hr/>
+                        <div>
+                            <ProjectForm addProject={makeNewProjectList} />
+                        </div>
 
-                        <div>                                    
-                            <ProjectsSection projects={projects} />                                                    
-                        </div>         
+                        <div className="after-form-container">
+                            <hr/>
+                            <h2 className="list-of-projects-label">List of projects : </h2><br/>
+                            <hr/>
+
+                            <div>                                    
+                                <ProjectsSection projects={projects} removeProject={deleteProject}/>                                                    
+                            </div>         
+                        </div>                                    
                     </>
                 ) :
                 (

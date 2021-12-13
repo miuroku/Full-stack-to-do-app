@@ -11,7 +11,6 @@ import Task from '../models/Task.model';
 const projectListRouter = express.Router();
 
 
-
 // Get some info about specific projectList of user.
 projectListRouter.get('/get-tasks-from-project-list/:id', isAuth, async (req: Request, res: Response) => {
     try {
@@ -27,11 +26,11 @@ projectListRouter.get('/get-tasks-from-project-list/:id', isAuth, async (req: Re
         if (projectList?.user == userDecoded?._id) {
 
             // 3. Get all tasks related to current projectList.
-            logger.debug(`Project list id : ${(projectList as any)._id}`);
+            //logger.debug(`Project list id : ${(projectList as any)._id}`);
             
-            //const our_tasks = Task.find({projectList_id: (projectList as any)._id}); // Sort out why that query not worling 
-            const our_tasks = projectList.tasks;
-            logger.debug(`Our tasks : ${JSON.stringify(our_tasks, null, 4)}`);
+            const our_tasks = await Task.find({projectList_id: (projectList as any)._id});
+            //const our_tasks = projectList.tasks; // Invalid solution.
+            //logger.debug(`Our tasks : ${JSON.stringify(our_tasks, null, 4)}`);
 
             res.json({projectList: projectList, tasks: our_tasks}).status(200).end();
         } else {
@@ -98,11 +97,12 @@ projectListRouter.patch('/update-one/:id', isAuth, (req: Request, res: Response)
 });
 
 // Delete one.
-projectListRouter.delete('/delete-one/:id', isAuth, (req: Request, res: Response) => {
+projectListRouter.post('/delete-one/:id', isAuth, async (req: Request, res: Response) => {
     try {
-
-        const result = {};
-        res.json({result}).status(200).end();
+        logger.debug(`Inside delete project ...`);
+        const id = req.params.id;        
+        const projectList = await ProjectList.deleteOne({_id: id});        
+        res.json({}).status(200).end();
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });   
     }

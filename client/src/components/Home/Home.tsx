@@ -1,6 +1,10 @@
-import React from 'react'
-import Footer from '../Footer/Footer';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react';
+import './Home.css';
+import { Redirect } from 'react-router';
+import { useState } from 'react';
 
+//import Statistics from '../Statistics/Statistics';
 import { useUser } from './../../store';
 
 function Home() {  
@@ -8,34 +12,49 @@ function Home() {
     // eslint-disable-next-line
     const { user, setUser, token } = useUser();
 
+    const [statistics, setStatistics] = useState(false);
+
+    const changeStat = () => {
+        setStatistics((prev) => !prev);
+    };
+
     return (
         <div>
-            <div>
-                Home kek. <br/>                
-                Some Form : <br/>                    
-                <button type="submit">
-                    Set new cookies.
-                </button>
-                <form onSubmit={() => 1+1}>
-                    <input type="text"/>
-                    <button type="submit">
-                        Get smth using cookies.
-                    </button>                
-                </form>
-                <div id="some_test_0">
+            <div className="home-container">                                
                     {
                         user !== null ? (
                             <>
-                                <p>Hello, "{user?.name}" user !</p>
-                                <p>Your token is : {token}</p>
+                                <div className="hello-user-message">
+                                    <p>Hello, "{user?.name}" user !</p>                                
+                                </div>
+                                <hr/>
+                                <br/>
+                                <div className="pre-content-about-statistics">
+                                    <p>You can see your statistics about tasks and projects here :</p>
+                                </div>
+                                <div>
+                                    <a href="#" className="btn-3d green" onClick={changeStat}>
+                                        Show statistics
+                                    </a>
+                                </div>
+                                { statistics === true ? (
+                                    <>
+                                        {/* <Statistics/> */}
+                                    </>
+                                ) 
+                                : (
+                                    <>
+                                    </>
+                                )
+                                }
                             </>
                         ) 
                         :
-                        <></>
-                    }
-                </div>
-            </div>
-            <Footer/>
+                        <>
+                            <Redirect to="/login" />
+                        </>
+                    }                
+            </div>            
         </div>
     );
 }
